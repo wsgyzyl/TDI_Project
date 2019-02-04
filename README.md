@@ -106,4 +106,4 @@ for(i in source_info){
 References
 ----------
 
-\[1\] \[Mobile phone app connects citizens directly to city services\](<https://www.citysourced.com/blog/citysourced-integrates-san-franciscos-open-311-system/>)
+\[1\] [Mobile phone app connects citizens directly to city services](<https://www.citysourced.com/blog/citysourced-integrates-san-franciscos-open-311-system/>)
