@@ -49,7 +49,11 @@ category <- count(sf311, 'Category')
 category <- category[order(-category$freq),]
 category$Category <- factor(category$Category, levels = category$Category[order(category$freq)])
 ggplot(head(category, 10), aes(x = Category,y = freq)) +
-  geom_bar(stat='identity',colour="white") +
+  geom_bar(stat='identity',colour="white", fill = 'Orange') +
+  geom_text(aes(x = Category, y = 1, label = 
+                  paste0("(",round(100*freq/nrow(sf311),2),"%)",sep="")),
+            hjust=0, vjust=.5, size = 4, colour = 'black',
+            fontface = 'bold') +
   labs(x = 'Category', 
        y = 'Number of cases', 
        title = 'Top 10 SF 311 Case Categories') +
@@ -62,7 +66,7 @@ ggplot(head(category, 10), aes(x = Category,y = freq)) +
 
 We can see that citizens of SF really care about the appearance of their city. Cases in *Street and Side Walk Cleaning* and *Graffiti* categories consists almost half of the total cases.
 
-Work in progress
+Working in progress
 -------------------
 
 The following is still working in progress. A calendar heat map is generated for the number of cases submitted form 1/1/2009 to 12/31/2018.
@@ -78,6 +82,7 @@ daily_case_count$monthf <- factor(month(daily_case_count$Opened.Date),levels=as.
 daily_case_count$yearmonthf <- factor(as.yearmon(daily_case_count$Opened.Date)) #finding the year and the month from the date. Eg: Nov 2018 
 daily_case_count$week <- as.numeric(format(daily_case_count$Opened.Date,"%W"))
 daily_case_count <- ddply (daily_case_count, .(yearmonthf), transform, monthweek = 1+week-min(week))
+recent_3_years <- daily_case_count[year(daily_case_count$Opened.Date) > 2015,]
 ```
 
 ![](SF311_files/figure-markdown_github/Drawing-1.png)
@@ -106,4 +111,4 @@ for(i in source_info){
 References
 ----------
 
-\[1\] [Mobile phone app connects citizens directly to city services](<https://www.citysourced.com/blog/citysourced-integrates-san-franciscos-open-311-system/>)
+\[1\] \[Mobile phone app connects citizens directly to city services\](<https://www.citysourced.com/blog/citysourced-integrates-san-franciscos-open-311-system/>)
