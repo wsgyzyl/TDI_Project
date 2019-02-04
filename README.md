@@ -62,7 +62,7 @@ ggplot(head(category, 10), aes(x = Category,y = freq)) +
 
 We can see that citizens of SF really care about the appearance of their city. Cases in *Street and Side Walk Cleaning* and *Graffiti* categories consists almost half of the total cases.
 
-Working in progress
+Work in progress
 -------------------
 
 The following is still working in progress. A calendar heat map is generated for the number of cases submitted form 1/1/2009 to 12/31/2018.
