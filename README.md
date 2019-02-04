@@ -37,7 +37,7 @@ Data Exploration and Visualization
 
 First, I'd like to see what is the most popular method people use to submit 311 requests and how it changes over time. geom\_bar() chart is used to show the number of cases from every source from 2009 to 2018.
 
-![](SF311_files/figure-markdown_github/Source%20Distribution%20Figure-1.png)
+![](README_files/figure-markdown_github/Source%20Distribution%20Figure-1.png)
 
 We can see the total number of cases increases every year and the speed is very fast for the most recent 3 years. The main driven force is the *Mobile/Open311*. Although the mobile 311 app launched in 2010 \[1\], the *Mobile/Open311* quickly replaced the *Phone* as the most popular 311 request platform in 2016 and its momentum has not stopped yet. The *Phone*, once the most dominant platform, has a very steady number of 311 cases over the years. It is still the second most popular way for citizens of SF to submit 311 requests today. 311 cases from the *Web*, which is in the third place in 2018, has seen a slow but steady increase in the number of cases over the years. Number 4 in 2018, the *Integrated Agency*, was first seen in 2012 and has been quite steady like the *Phone*. All the other platforms have much less number of cases which makes them almost invisible in the figure.
 
@@ -62,14 +62,14 @@ ggplot(head(category, 10), aes(x = Category,y = freq)) +
   theme_bw()
 ```
 
-![](SF311_files/figure-markdown_github/Top%2010%20Categories-1.png)
+![](README_files/figure-markdown_github/Top%2010%20Categories-1.png)
 
 We can see that citizens of SF really care about the appearance of their city. Cases in *Street and Side Walk Cleaning* and *Graffiti* categories consists almost half of the total cases.
 
 Working in progress
 -------------------
 
-The following is still working in progress. A calendar heat map is generated for the number of cases submitted form 1/1/2009 to 12/31/2018.
+The following is still working in progress. A calendar heat map is generated for the number of cases submitted form 1/1/2016 to 12/31/2018.
 
 ``` r
 library(lubridate)
@@ -84,14 +84,13 @@ daily_case_count$monthf <-
   factor(month(daily_case_count$Opened.Date),levels=as.character(1:12),
          labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
          ordered=TRUE) # finding the month 
-daily_case_count$yearmonthf <- factor(as.yearmon(daily_case_count$Opened.Date)) 
-#finding the year and the month from the date. Eg: Nov 2018 
+daily_case_count$yearmonthf <- factor(as.yearmon(daily_case_count$Opened.Date)) #finding the year and the month from the date. Eg: Nov 2018 
 daily_case_count$week <- as.numeric(format(daily_case_count$Opened.Date,"%W"))
 daily_case_count <- ddply (daily_case_count, .(yearmonthf), transform, monthweek = 1+week-min(week))
 recent_3_years <- daily_case_count[year(daily_case_count$Opened.Date) > 2015,]
 ```
 
-![](SF311_files/figure-markdown_github/Drawing-1.png)
+![](README_files/figure-markdown_github/Drawing-1.png)
 
 Some of the 311 requests have associated picture attachment. It may be interesting to see if this additional information will help to improve the resolution rate of 311 requests. We are also curious about whether the picture attachment rate actually affects the resolution rate of 311 requests submitted from different platforms.
 

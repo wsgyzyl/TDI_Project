@@ -1,12 +1,12 @@
 ---
 title: "San Fransisco 311 Cases Data EDA"
 output: github_document
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding, output_file = 'README.md') })
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 
 311 as the provider of non-emergency municipal services contains a huge amount of useful information that can help the local government in the policy-making process. Here I explored the San Francisco 311 cases data since 7/1/2008 from [DataSF](https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6).
 
