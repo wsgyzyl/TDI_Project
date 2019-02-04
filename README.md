@@ -77,9 +77,15 @@ library(zoo)
 sf311_full_year$Opened.Date <- as_date(sf311_full_year$Opened)
 daily_case_count <- count(sf311_full_year, 'Opened.Date')
 daily_case_count$weekday <- as.POSIXlt(daily_case_count$Opened.Date)$wday
-daily_case_count$weekdayf<-factor(daily_case_count$weekday,levels=rev(0:6),labels=rev(c("Sun","Mon","Tue","Wed","Thu","Fri","Sat")),ordered=TRUE)
-daily_case_count$monthf <- factor(month(daily_case_count$Opened.Date),levels=as.character(1:12),labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),ordered=TRUE) # finding the month 
-daily_case_count$yearmonthf <- factor(as.yearmon(daily_case_count$Opened.Date)) #finding the year and the month from the date. Eg: Nov 2018 
+daily_case_count$weekdayf <- 
+  factor(daily_case_count$weekday,levels=c(1,2,3,4,5,6,0),
+         labels=(c("Mon","Tue","Wed","Thu","Fri","Sat","Sun")),ordered=TRUE)
+daily_case_count$monthf <- 
+  factor(month(daily_case_count$Opened.Date),levels=as.character(1:12),
+         labels=c("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
+         ordered=TRUE) # finding the month 
+daily_case_count$yearmonthf <- factor(as.yearmon(daily_case_count$Opened.Date)) 
+#finding the year and the month from the date. Eg: Nov 2018 
 daily_case_count$week <- as.numeric(format(daily_case_count$Opened.Date,"%W"))
 daily_case_count <- ddply (daily_case_count, .(yearmonthf), transform, monthweek = 1+week-min(week))
 recent_3_years <- daily_case_count[year(daily_case_count$Opened.Date) > 2015,]
